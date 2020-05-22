@@ -78,7 +78,7 @@ class FilmRepository extends ServiceEntityRepository
     }
 
     // Compte tout les films ayant une catégory donnée
-    public function getTotalFilmParCategory($idCategory)
+    /* public function getTotalFilmParCategory($idCategory)
     {
         return $this->createQueryBuilder('f')
             ->select('count(f.id)')
@@ -87,6 +87,17 @@ class FilmRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult()
         ;
-    }
+    } */
+
+    // Recupere tout les films ayant une categorie donnée
+     public function getFilmParCategory($idCategory)
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.category = :val')
+            ->setParameter('val', $idCategory)
+            ->getQuery()
+            ->getResult()
+        ;
+    } 
     
 }

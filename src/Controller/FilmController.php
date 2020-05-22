@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Film;
-use App\Entity\Category;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use DateTimeInterface;
+use App\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FilmController extends AbstractController
 {
@@ -38,8 +38,7 @@ class FilmController extends AbstractController
         $film = new Film();
 
         //$film->setDescription('C\'est un film plutot interessant !');
-        $film->setTitre('Le titre de l\'annee');
-        $film->setPrix(23.5);
+        // TODO ajouter film
 
         $em->persist($film);
 
@@ -72,41 +71,30 @@ class FilmController extends AbstractController
      * @Route("/genreFilms", name="genreFilms")
      */
     public function genreFilm(){
-        //$films = $this->getDoctrine()->getRepository(Film::class)->getCategoryFilm();
-
         $films = $this->getDoctrine()->getRepository(Film::class)->findAll();
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         
-        $nbFilmsHorreur = 0;
-        $nbFilmsAction = 0;
-        $nbFilmsAnimation = 0;
-        $nbFilmsThriller = 0;
+        // C'est un tableau associatif
+        $allFilmsCategory = array() ;
 
-        foreach($films as $film){
-            $category = $film->getCategory()->getId();
-
-            switch($category){
-                case 1:
-                    $nbFilmsHorreur++;
-                    break;
-                case 2:
-                    $nbFilmsAction++;
-                    break;
-                case 3:
-                    $nbFilmsAnimation++;
-                    break;
-                case 4:
-                    $nbFilmsThriller++;
-                    break;  
+        foreach($categories as $category){  
+            foreach($films as $film)
+            {
+                // Recupere l'id de la categorie
+                $idCategory = $category->getId();
+                // Recupere tout les films par rapport a un id donnée
+                $filmParCategory = $this->getDoctrine()->getRepository(Film::class)->getFilmParCategory($idCategory);
+                // definit la clé du tableau ($category->getLibelleCat) et lui assigne la valeur $filmParCategory
+                $allFilmsCategory[$category->getLibelleCat()] = $filmParCategory; 
             }
+           
         }
-
+        
         return $this->render('film/genreFilm.html.twig', [
             'films' => $films,
-            'nbFilmsHorreur' => $nbFilmsHorreur,
-            'nbFilmsAction' => $nbFilmsAction,
-            'nbFilmsAnimation' => $nbFilmsAnimation,
-            'nbFilmsThriller' => $nbFilmsThriller,
-        ]);
+            'allFilmsCategory' => $allFilmsCategory
+        ]); 
     }
 
     /**
