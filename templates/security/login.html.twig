@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <fieldset>
+        <legend>Se connecter </legend>
+
+        <form action="{{ path('login') }}" method="post">
+            <div class="form_group">
+            {# name="_username" => noms du champs que Symfony prend en compte pour la connexion #}
+                <label>Email : </label>
+                <input placeholder="Adresse email" required name="_username" type="text" class="form-control">
+            </div><br>
+            <div class="form_group">
+                <label>Mot de passe: </label>
+                <input placeholder="Mot de passe" required name="_password" type="password" class="form-control">
+            </div><br>
+            <div class="form_group">
+                <button type="submit" class="btn btn-success">Connexion </button>
+            </div>
+        </form>
+    </fieldset>
+</div>
+{% endblock %}

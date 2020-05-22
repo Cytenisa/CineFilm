@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+        <div class="container">
+            <div class="col-md-12">
+                <section class="sectionFilm">
+                    <h2 class="titreFilm">{{ film.titre }}</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row descriptionFilm">
+                                <div class="col-md-6">
+                                    <span>Genre : 
+                                        <span>{{ category }}</span>
+                                    </span><br>
+                                    <span>Date de sortie : 
+                                        <span>{{ film.dateSortie|date("d/m/Y") }}</span>
+                                    </span><br>
+                                    <span>Durée : 
+                                        <span>{{ film.duree|date("H\\hi") }}</span>
+                                    </span><br>
+                                    <p>{{ film.resume }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video">
+                                <iframe width="760" height="510" src="{{ film.lienBA }}" 
+                                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+{% endblock %}

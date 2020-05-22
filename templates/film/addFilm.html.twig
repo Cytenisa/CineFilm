@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<form method="post" action="">
+    <fieldset>
+        Ajouter un film
+        <legend>Nouveau Film </legend>
+        <label>Titre</label>
+        <div class="champ">
+            <input type="text" name="titre" value=""/>
+        </div>
+        <label>Resume</label>
+        <div class="champ">
+            <input type="text" name="resume" value=""/>
+        </div>
+        <label>Prix</label>
+        <div class="champ">
+            <input type="number" name="prix" value=""/>
+        </div>
+        <div class="champ">
+            <input type="submit" name="valider" value="Valider l'ajout">
+        </div>
+    </fieldset>
+</form>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if nbFilmsHorreur %}
+        <div class="wrapper">
+            <h2 class="title">
+                <strong>Horreur<span>( {{ nbFilmsHorreur }} )</span></strong>
+            </h2>
+            <div class="news">
+            
+            {% for film in films %}
+                {% if film.category.id == 1 %}
+                <figure class="article">
+                    <img src="{{asset('/images/'~ film.image ~'')}}">
+                    <figcaption>
+                        <a href="{{ path('film', {'id': film.id}) }}" class="news-card__card-link"></a>
+                        <h2>{{film.titre}}</h2>
+                        <h3>Date de sortie : {{film.dateSortie|date("d/m/Y")}}</h3>
+                        <h3>Durée : {{film.duree|date("H\\hi")}}</h3>
+                        <p>{{film.resume}}</p>    
+                    </figcaption>
+                </figure> 
+                {% endif %}
+            {% endfor %} 
+            </div>
+        </div>
+    {% endif %}
+    {% if nbFilmsAction %}
+        <div class="wrapper">
+            <h2 class="title">
+                <strong>Action<span>( {{ nbFilmsAction }} )</span></strong>
+            </h2>
+            <div class="news">
+            {% for film in films %}
+                {% if film.category.id == 2 %}
+                <figure class="article">
+                    <img src="{{asset('/images/'~ film.image ~'')}}">
+                    <figcaption>
+                        <a href="{{ path('film', {'id': film.id}) }}" class="news-card__card-link"></a>
+                        <h2>{{film.titre}}</h2>
+                        <h3>Date de sortie : {{film.dateSortie|date("d/m/Y")}}</h3>
+                        <h3>Durée : {{film.duree|date("H\\hi")}}</h3>
+                        <p>{{film.resume}}</p>    
+                    </figcaption>
+                </figure> 
+                {% endif %}
+            {% endfor %} 
+            </div>
+        </div>
+    {% endif %}
+    {% if nbFilmsAnimation %}
+        <div class="wrapper">
+            <h2 class="title">
+                <strong>Animation<span>( {{ nbFilmsAnimation }} )</span></strong>
+            </h2>
+            <div class="news">
+            {% for film in films %}
+                {% if film.category.id == 3 %}
+                <figure class="article">
+                    <img src="{{asset('/images/'~ film.image ~'')}}">
+                    <figcaption>
+                        <a href="{{ path('film', {'id': film.id}) }}" class="news-card__card-link"></a>
+                        <h2>{{film.titre}}</h2>
+                        <h3>Date de sortie : {{film.dateSortie|date("d/m/Y")}}</h3>
+                        <h3>Durée : {{film.duree|date("H\\hi")}}</h3>
+                        <p>{{film.resume}}</p>    
+                    </figcaption>
+                </figure> 
+                {% endif %}
+            {% endfor %} 
+            </div>
+        </div>
+    {% endif %}
+    {% if nbFilmsThriller %}
+        <div class="wrapper">
+            <h2 class="title">
+                <strong>Thriller<span>( {{ nbFilmsThriller }} )</span></strong>
+            </h2>
+            <div class="news">
+            {% for film in films %}
+                {% if film.category.id == 4 %}
+                <figure class="article">
+                    <img src="{{asset('/images/'~ film.image ~'')}}">
+                    <figcaption>
+                        <a href="{{ path('film', { 'id': film.id }) }}" class="news-card__card-link"></a>
+                        <h2>{{film.titre}}</h2>
+                        <h3>Date de sortie : {{film.dateSortie|date("d/m/Y")}}</h3>
+                        <h3>Durée : {{film.duree|date("H\\hi")}}</h3>
+                        <p>{{film.resume}}</p>    
+                    </figcaption>
+                </figure> 
+                {% endif %}
+            {% endfor %} 
+            </div>
+        </div>
+    {% endif %}
+        
+{% endblock %}
